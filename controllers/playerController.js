@@ -10,6 +10,16 @@ export const getPlayers = async (req, res) => {
   }
 };
 
+export const getPlayerById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const player = await Player.find({ _id: id });
+    res.status(200).json(player);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Add a new player
 export const addPlayer = async (req, res) => {
   const { name, role, startingPrice } = req.body;

@@ -8,5 +8,6 @@ router.put('/:bidId', updateBid);
 router.delete('/:bidId', deleteBid);
 router.get('/:auctionId', getBidsByAuctionId);
 router.get('/user/:auctionId/:userId', getBidsByUserId)
+router.get('/user/:userId', getBidsByUserId)
 
 export default router;

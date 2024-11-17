@@ -148,3 +148,22 @@ export const getBidsByUserId = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   };
+
+  export const getBidsByOnlyUserId = async (req, res) => {
+    const { userId, auctionId } = req.params;
+  
+    try {
+      // Find bids related to the userId
+      const bids = await Bid.find({ userId })
+        .populate('auctionId', 'playerId currentBid auctionEndTime') // Populate auction data (optional)
+        .sort({ bidAmount: -1 }); // Sort bids by bid amount in descending order
+  
+      if (!bids || bids.length === 0) {
+        return res.status(404).json({ message: 'No bids found for this user' });
+      }
+  
+      res.status(200).json(bids);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
